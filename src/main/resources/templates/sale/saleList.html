@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>userList</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.css}"/>
+    <script type="text/javascript" th:src="@{/css/jquery-2.1.1.min.js}"></script>
+    <script type="text/javascript" th:src="@{/css/bootstrap.min.js}"></script>
+    <link type="text/css" rel="stylesheet" th:href="@{/css/bootstrap-theme.min.css}"/>
+</head>
+<body>
+<table class="table table-hover">
+
+
+    <button class="btn btn-default" type="button" placeholder="新增">新增</button>
+
+    <div class="with:80%">
+        <form th:action="@{/findSaleQuery}" th:object="${sale}" th:method="get">
+            <div class="form-group">
+                <label class="col-sm-2 control-label" >id</label>
+                <div class="col-sm-4">
+                    <input type="text" class="form-control" id="id" placeholder="请输入名称" th:field="*{id}"/>
+                </div>
+
+                <label class="col-sm-2 control-label" >info</label>
+                <div class="col-sm-4">
+                    <input type="text" class="form-control" id="info" placeholder="请输info" th:field="*{info}"/>
+                </div>
+
+                <label class="col-sm-2 control-label" >custom</label>
+                <div class="col-sm-4">
+                    <input type="text" class="form-control" id="custom" placeholder="请输custom" th:field="*{custom}"/>
+                </div>
+
+                <label class="col-sm-2 control-label" >saledate</label>
+                <div class="col-sm-4">
+                    <input type="text" class="form-control" id="saledate" placeholder="请输saledate" th:field="*{saledate}"/>
+                </div>
+
+                <label class="col-sm-2 control-label" >money</label>
+                <div class="col-sm-4">
+                    <input type="text" class="form-control" id="money" placeholder="请输money" th:field="*{money}"/>
+                </div>
+
+                <label class="col-sm-2 control-label" >shenhe</label>
+                <div class="col-sm-4">
+                    <input type="text" class="form-control" id="shenhe" placeholder="请输shenhe" th:field="*{shenhe}"/>
+                </div>
+
+                <div class="col-sm-4">
+                    <button class="btn btn-default" type="submit" placeholder="查询">查询</button>
+                </div>
+            </div>
+        </form>
+
+
+
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th>序号</th>
+                <th>单号</th>
+                <th>客户</th>
+                <th>销售日期</th>
+                <th>销售总额</th>
+                <th>登记情况</th>
+                <th>状态</th>
+
+            </tr>
+            </thead>
+            <tbody>
+            <tr  th:each="sale : ${datas}">
+                <th scope="row" th:text="${sale.id}">1</th>
+                <td th:text="${sale.info}">neo</td>
+                <td th:text="${sale.custom}">neo</td>
+                <td th:text="${sale.saledate}">neo</td>
+                <td th:text="${sale.money}">neo</td>
+                <td th:switch="${sale.dengji}">
+                    <p th:case="2">未登记</p>
+                    <p th:case="1">已登记</p>
+                </td>
+                <td th:text="${sale.shenhe}">neo</td>
+
+            </tr>
+            </tbody>
+        </table>
+
+
+        <div th:include="sale/page::pager" th:remove="tag"></div>
+    </div>
+
+</table>
+</body>
+</html>
